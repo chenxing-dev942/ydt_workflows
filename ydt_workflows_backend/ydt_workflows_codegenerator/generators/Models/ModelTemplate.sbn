@@ -1,0 +1,48 @@
+﻿using JadeFramework.Core.Dapper;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ydt_workflows_backend.Models
+{
+    /// <summary>
+    /// {{comment}}
+    /// </summary>
+    [Table("{{tablename}}")]
+    public class {{name}}
+    {   
+       {{- for property in properties }}
+        {{# 根据主键类型，判断主键是否自增}}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// {{property.comment}}
+        /// </summary>
+        {{- if property.type =="long" }}
+        [Key,Identity]
+         {{- else }}
+        [Key]
+        {{- end }}
+        public {{property.type}} {{property.name}} { get; set; }
+        {{- else }}
+        /// <summary>
+        /// {{property.comment}}
+        /// </summary>
+        public {{property.type}} {{property.name}} { get; set; }
+        {{- end }}
+       {{- end }}
+    }
+
+    /// <summary>
+    /// {{comment}}-{{comment}}表映射
+    /// </summary>
+    public sealed class {{name}}Mapper : ClassMapper<{{name}}>
+    {
+        public {{name}}Mapper()
+        {
+            // 1、映射到{{tablename}}
+            Table("{{tablename}}");
+
+            // 2、自动映射【字段和属性】
+            AutoMap();
+        }
+    }
+}

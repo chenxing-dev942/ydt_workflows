@@ -1,0 +1,23 @@
+﻿namespace ydt_workflows_backend.Models
+{
+    /// <summary>
+    /// 用户模型
+    /// </summary>
+    public class User
+    {
+        // 主键映射
+        //public int {{filed1}} { get; set; }
+        // scriban循环取值
+        {{ "\n" }}
+        {{- for templateobject in templateobjects -}}
+            {{- if templateobject.username =="username1" -}}
+            public string {{templateobject.username}} { get; set; }
+            {{- else -}}
+            public string YDT{{templateobject.username}} { get; set; }
+            {{- end -}}
+            {{ "\n" }}
+            public string {{templateobject.password}} { get; set; }
+            {{ "\n" }}
+        {{- end -}}
+    }
+}

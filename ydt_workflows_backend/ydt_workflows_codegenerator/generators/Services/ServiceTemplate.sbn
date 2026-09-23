@@ -1,0 +1,156 @@
+﻿using ydt_workflows_backend.Contexts;
+using ydt_workflows_backend.Fixtrues;
+using ydt_workflows_backend.Dtos;
+using AutoMapper;
+using AutoMapper;
+using ydt_workflows_backend.Models;
+using ydt_workflows_backend.CommonExceptions;
+
+namespace ydt_workflows_backend.Services
+{
+    /// <summary>
+    /// {{comment}}Service接口
+    /// </summary>
+    public class {{name}}Service : I{{name}}Service
+    {
+        /// <summary>
+        /// 工作流固定类
+        /// </summary>
+        public WorkflowFixtrue _workflowFixtrue { get; set; }
+
+        public IMapper _mapper { get; set; }
+
+        public {{name}}Service(WorkflowFixtrue workflowFixtrue,
+                               IMapper mapper)
+        {
+            _workflowFixtrue = workflowFixtrue;
+            _mapper = mapper;
+        }
+
+        /// <summary>
+        /// {{comment}}创建实现
+        /// </summary>
+        /// <param name="{{name}}CreateDto"></param>
+        /// <returns></returns>
+        public async Task<bool> {{name}}CreateAsync({{name}}CreateDto {{name}}CreateDto)
+        {
+            // 1、{{name}}CreateDto模型映射
+            {{name}} {{name}} = _mapper.Map<{{name}}>({{name}}CreateDto);
+
+            //2、实现{{comment}}创建
+            return await  _workflowFixtrue.db.{{name}}s.InsertAsync({{name}});
+        }
+
+        public async Task<List<{{name}}Dto>> {{name}}GetListAsync({{name}}GetListDto {{name}}GetListDto)
+        {
+            {{# 创建中间变量has_isdel}}
+            {{- has_isdel = false }}
+            {{- for property in properties }}
+              {{- if property.name == 'IsDel' }}
+                {{- has_isdel = true }}
+                {{- break -}}
+              {{- end }}
+            {{- end }}
+            {{- if has_isdel }}
+            //1、查询所有{{comment}}
+            IEnumerable<{{name}}> {{name}}s = await _workflowFixtrue.db.{{name}}s.FindAllAsync(u => u.IsDel == {{name}}GetListDto.IsDel);
+            {{- else }}
+            //1、查询所有{{comment}}
+            IEnumerable<{{name}}> {{name}}s = await _workflowFixtrue.db.{{name}}s.FindAllAsync();
+            {{- end }}
+            // 2、{{comment}}映射
+            List<{{name}}Dto> {{name}}Dtos = _mapper.Map<List<{{name}}Dto>>({{name}}s);
+
+            // 3、返回{{comment}}
+            return {{name}}Dtos;
+        }
+
+        public async Task<{{name}}PageDto> {{name}}GetListPageAsync({{name}}GetListPageDto {{name}}GetListPageDto)
+        {
+            // 1、{{comment}}分页Dto映射
+            {{name}}GetListPage {{name}}GetListPage = _mapper.Map<{{name}}GetListPage>({{name}}GetListPageDto);
+
+            // 2、查询分页{{comment}}
+            {{name}}Page {{name}}Page = await _workflowFixtrue.db.{{name}}s.{{name}}GetListPageAsync({{name}}GetListPage);
+
+            // 3、{{comment}}分页模型映射
+            {{name}}PageDto {{name}}PageDto = _mapper.Map<{{name}}PageDto>({{name}}Page);
+            return {{name}}PageDto;
+        }
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        public async Task<{{name}}Dto> {{name}}GetAsync({{property.type}} {{property.name}})
+        {
+            // 1、查询{{comment}}
+            {{name}} {{name}} = await _workflowFixtrue.db.{{name}}s.FindAsync(m => m.{{property.name}} == {{property.name}});
+
+            // 2、映射{{comment}}
+            {{name}}Dto {{name}}Dto = _mapper.Map<{{name}}Dto>({{name}});
+
+            return {{name}}Dto;
+        }
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        public async Task<bool> {{name}}UpdateAsync({{name}}UpdateDto {{name}}UpdateDto, {{property.type}} {{property.name}})
+        {
+            // 1、查询{{comment}}
+            {{name}} {{name}} = await _workflowFixtrue.db.{{name}}s.FindAsync(m => m.{{property.name}} == {{property.name}});
+            if ({{name}} == null)
+            {
+                throw new CommonException("{{name}}不存在");
+            }
+
+            // 2、{{comment}}模型映射
+            {{name}} = _mapper.Map<{{name}}UpdateDto, {{name}}>({{name}}UpdateDto, {{name}});
+
+            // 3、{{comment}}更新实现
+            return await _workflowFixtrue.db.{{name}}s.UpdateAsync({{name}});
+        }
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        public async Task<bool> {{name}}DeleteAsync(List<{{property.type}}> {{property.name}}s)
+        {
+            // 1、开启事务
+            using (var tran = _workflowFixtrue.db.BeginTransaction())
+            {
+                {{# 创建中间变量has_isdel}}
+                {{- has_isdel = false }}
+                {{- for property in properties }}
+                  {{- if property.name == 'IsDel' }}
+                    {{- has_isdel = true }}
+                    {{- break -}}
+                  {{- end }}
+                {{- end }}
+                {{- if has_isdel }}
+                // 2、查询{{comment}}
+                var {{name}}s = await _workflowFixtrue.db.{{name}}s.FindAllAsync(m => m.IsDel == false && {{property.name}}s.Contains(m.{{property.name}}));
+                foreach (var {{name}} in {{name}}s)
+                {
+                    // 3、删除{{comment}}【逻辑删除】
+                    {{name}}.IsDel = true; // 1:删除状态
+                    await _workflowFixtrue.db.{{name}}s.UpdateAsync({{name}}, tran);
+                }
+                {{- else }}
+                // 2、查询{{comment}}
+                var {{name}}s = await _workflowFixtrue.db.{{name}}s.FindAllAsync(m => {{property.name}}s.Contains(m.{{property.name}}));
+                foreach (var {{name}} in {{name}}s)
+                {
+                    // 3、删除{{comment}}【真实删除】
+                    await _workflowFixtrue.db.{{name}}s.DeleteAsync({{name}});
+                }
+                {{- end }}
+                tran.Commit();
+                return true;
+            }
+        }
+        {{- end }}
+        {{- end }}
+    }
+}

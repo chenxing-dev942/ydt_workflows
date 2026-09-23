@@ -1,0 +1,28 @@
+﻿# ===== .NET 后端 =====
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+packages/
+*.nupkg
+
+# ===== 前端（将来用）=====
+node_modules/
+dist/
+.vite/
+.cache/
+
+# ===== 通用 =====
+.idea/
+.vscode/
+code/
+Thumbs.db
+.DS_Store

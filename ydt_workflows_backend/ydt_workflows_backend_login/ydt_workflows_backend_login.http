@@ -1,0 +1,6 @@
+@ydt_workflows_backend_login_HostAddress = http://localhost:5157
+
+GET {{ydt_workflows_backend_login_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

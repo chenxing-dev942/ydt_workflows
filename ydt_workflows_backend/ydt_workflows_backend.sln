@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37111.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ydt_workflows_backend", "ydt_workflows_backend\ydt_workflows_backend.csproj", "{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ydt_workflows_CommonController", "ydt_workflows_CommonController\ydt_workflows_CommonController.csproj", "{4B8E1D29-2265-45FD-B667-827AAE967B25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ydt_workflows_backend_login", "ydt_workflows_backend_login\ydt_workflows_backend_login.csproj", "{045FAD35-42A5-4724-9A9C-8ABF7576F67D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "code", "code", "{A8700807-6AC4-4925-8242-51672EBE811A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{40ADBD77-109C-4775-9D22-90548F8F2B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ydt_workflows_codegenerator", "ydt_workflows_codegenerator\ydt_workflows_codegenerator.csproj", "{C44EB6FF-1633-438E-87CF-17B28603AF09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B8E1D29-2265-45FD-B667-827AAE967B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8E1D29-2265-45FD-B667-827AAE967B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8E1D29-2265-45FD-B667-827AAE967B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8E1D29-2265-45FD-B667-827AAE967B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045FAD35-42A5-4724-9A9C-8ABF7576F67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045FAD35-42A5-4724-9A9C-8ABF7576F67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045FAD35-42A5-4724-9A9C-8ABF7576F67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045FAD35-42A5-4724-9A9C-8ABF7576F67D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44EB6FF-1633-438E-87CF-17B28603AF09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44EB6FF-1633-438E-87CF-17B28603AF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44EB6FF-1633-438E-87CF-17B28603AF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44EB6FF-1633-438E-87CF-17B28603AF09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F6334FD-92E0-45D2-9A6C-B70B6B78DDC7} = {A8700807-6AC4-4925-8242-51672EBE811A}
+		{4B8E1D29-2265-45FD-B667-827AAE967B25} = {40ADBD77-109C-4775-9D22-90548F8F2B17}
+		{045FAD35-42A5-4724-9A9C-8ABF7576F67D} = {A8700807-6AC4-4925-8242-51672EBE811A}
+		{A8700807-6AC4-4925-8242-51672EBE811A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{40ADBD77-109C-4775-9D22-90548F8F2B17} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C44EB6FF-1633-438E-87CF-17B28603AF09} = {40ADBD77-109C-4775-9D22-90548F8F2B17}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81A75509-FD87-4965-A01B-EC6C68EB8A35}
+	EndGlobalSection
+EndGlobal

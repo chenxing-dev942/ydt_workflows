@@ -1,0 +1,62 @@
+﻿using JadeFramework.Dapper;
+using JadeFramework.Dapper.SqlGenerator;
+using System.Data;
+using ydt_workflows_backend.Models;
+
+namespace ydt_workflows_backend.Repositorise
+{
+    /// <summary>
+    /// {{comment}}仓储实现
+    /// </summary>
+    public class {{name}}Repository : DapperRepository<{{name}}>, I{{name}}Repository
+    {
+        /// <summary>
+        /// 1、IDbConnection : Dapper实现数据库操作，连接对象
+        /// 2、SqlGeneratorConfig ：配置数据库类型。MySQL SqlServer Oracle
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="config"></param>
+        public {{name}}Repository(IDbConnection connection, 
+            SqlGeneratorConfig config) : base(connection, config)
+        {
+        }
+
+        public async Task<{{name}}Page> {{name}}GetListPageAsync({{name}}GetListPage {{name}}GetListPage)
+        {
+            //1、创建分页结果
+            {{name}}Page page = new {{name}}Page()
+            {
+                PageIndex = {{name}}GetListPage.PageIndex,
+                PageSize = {{name}}GetListPage.PageSize
+            };
+
+            // 2、设置{{comment}}名查询参数
+            string sqlWhere = " WHERE 1=1 ";
+            {{# 把页面入参，参数去掉，有的页面有入参，有的页面没有}}
+            //if (!{{name}}GetListPage.{{name}}Name.IsNullOrEmpty())
+            //{
+            //    sqlWhere += $@" AND {{name}}Name LIKE '%{{"{"}}{{name}}GetListPage.{{name}}Name.TrimBlank()}%' ";
+            //}
+            {{# 创建中间变量has_isdel}}
+            {{- has_isdel = false }}
+            {{- for propertity in propertities }}
+              {{- if propertity.name == 'IsDel' }}
+                {{- has_isdel = true }}
+                {{- break -}}
+              {{- end }}
+            {{- end }}
+            {{- if has_isdel }}
+            // 3、设置{{comment}}状态查询参数
+            sqlWhere += $@" AND IsDel = {{"{"}}{{name}}GetListPage.IsDel{{"}"}} ";
+            {{- end }}
+            // 4、实现分页查询
+            string sql = $"SELECT * FROM {{tablename}} {sqlWhere} LIMIT {{"{"}}{{name}}GetListPage.OffSet()},{{"{"}}{{name}}GetListPage.PageSize}";
+            page.{{name}}s = await this.QueryAsync(sql);
+
+            // 5、查询所有条数
+            page.TotalItems = await this.ExecuteScalarAsync<int>($"SELECT COUNT(1) FROM {{tablename}} {sqlWhere} ");
+            
+            return page;
+        }
+    }
+}

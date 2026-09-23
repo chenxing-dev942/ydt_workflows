@@ -1,0 +1,16 @@
+﻿using JadeFramework.Dapper.DbContext;
+using ydt_workflows_backend.Repositorys;
+
+namespace ydt_workflows_backend.Contexts
+{
+    /// <summary>
+    /// 工作流上下文接口
+    /// </summary>
+    public interface IWorkflowDbContext : IDapperDbContext
+    {
+        {{- for entity in entities }}
+        //依赖I{{entity.name}}Repository
+        public I{{entity.name}}Repository {{entity.name}}s { get; }
+        {{- end }}
+    }
+}

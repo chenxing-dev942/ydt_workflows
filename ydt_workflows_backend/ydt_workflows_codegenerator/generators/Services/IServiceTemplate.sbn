@@ -1,0 +1,59 @@
+﻿using ydt_workflows_backend.Dtos;
+
+namespace ydt_workflows_backend.Services
+{
+    /// <summary>
+    /// {{comment}}Service接口
+    /// </summary>
+    public interface I{{name}}Service
+    {
+        /// <summary>
+        /// 1、{{comment}}创建
+        /// </summary>
+        /// <param name="{{name}}CreateDto"></param>
+        /// <returns></returns>
+        public Task<bool> {{name}}CreateAsync({{name}}CreateDto {{name}}CreateDto);
+
+        /// <summary>
+        /// 2、{{comment}}集合查询
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<{{name}}Dto>> {{name}}GetListAsync({{name}}GetListDto {{name}}GetListDto);
+
+        /// <summary>
+        /// 2.1、{{comment}}集合分页查询
+        /// </summary>
+        /// <returns></returns>
+        public Task<{{name}}PageDto> {{name}}GetListPageAsync({{name}}GetListPageDto {{name}}GetListPageDto);
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 3、{{comment}}查询【根据{{property.name}}查询】
+        /// </summary>
+        /// <returns></returns>
+        public Task<{{name}}Dto> {{name}}GetAsync({{property.type}} {{property.name}});
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 4、{{comment}}更新
+        /// </summary>
+        /// <returns></returns>
+        public Task<bool> {{name}}UpdateAsync({{name}}UpdateDto {{name}}UpdateDto, {{property.type}} {{property.name}});
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 5、{{comment}}删除
+        /// </summary>
+        /// <returns></returns>
+        public Task<bool> {{name}}DeleteAsync(List<{{property.type}}> {{property.name}}s);
+        {{- end }}
+        {{- end }}
+    }
+}

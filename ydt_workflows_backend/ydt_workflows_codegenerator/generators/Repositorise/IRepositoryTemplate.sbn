@@ -1,0 +1,17 @@
+﻿using JadeFramework.Dapper;
+using ydt_workflows_backend.Models;
+
+namespace ydt_workflows_backend.Repositorise
+{
+    /// <summary>
+    /// {{comment}}仓储接口
+    /// </summary>
+    public interface I{{name}}Repository : IDapperRepository<{{name}}>
+    {
+         /// <summary>
+        /// {{comment}}集合分页查询
+        /// </summary>
+        /// <returns></returns>
+        public Task<{{name}}Page> {{name}}GetListPageAsync({{name}}GetListPage {{name}}GetListPage);
+    }
+}

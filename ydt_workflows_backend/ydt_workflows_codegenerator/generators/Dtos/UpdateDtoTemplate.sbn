@@ -1,0 +1,12 @@
+﻿namespace ydt_workflows_backend.Dtos
+{
+    /// <summary>
+    /// {{comment}}更新Dto
+    /// </summary>
+    public class {{name}}UpdateDto
+    {
+       {{- for property in properties }}
+        public {{property.type}} {{property.name}} { get; set; }
+      {{- end -}}
+    }
+}

@@ -1,0 +1,13 @@
+namespace ydt_workflows_backend.Dtos
+{
+    /// <summary>
+    /// 流程分类模型更新Dto
+    /// </summary>
+    public class WorkflowCategoryUpdateDto
+    {
+        public string CategoryId { get; set; }
+        public string Name { get; set; }
+        public string ParentId { get; set; }
+        public string Memo { get; set; }
+        public int Status { get; set; }}
+}

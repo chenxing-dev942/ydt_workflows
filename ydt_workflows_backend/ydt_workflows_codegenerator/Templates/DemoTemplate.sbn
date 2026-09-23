@@ -1,0 +1,13 @@
+﻿namespace ydt_workflows_backend.Models
+{
+    /// <summary>
+    /// 用户模型
+    /// </summary>
+    public class {{tony.user}}
+    {
+        // 主键映射
+        //public int {{filed1}} { get; set; }
+        public string {{tony.username}} { get; set; }
+        public string {{tony.password}} { get; set; }
+    }
+}

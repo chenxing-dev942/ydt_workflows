@@ -1,0 +1,99 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using ydt_workflows_backend.CommonControllers;
+using ydt_workflows_backend.Dtos;
+using ydt_workflows_backend.Services;
+
+namespace ydt_workflows_backend.Controllers
+{
+    /// <summary>
+    /// {{comment}}控制器
+    /// </summary>
+    [Route("[controller]")]
+    [ApiController]
+    public class {{name}}PageController : CommonController<{{name}}PageController>
+    {
+        /// <summary>
+        /// {{comment}}模型Service
+        /// </summary>
+        private I{{name}}Service _{{name}}Service;   
+
+        public {{name}}PageController(ILogger<{{name}}PageController> logger,
+                                I{{name}}Service {{name}}Service) : 
+            base(logger)
+        {
+            _{{name}}Service = {{name}}Service;
+        }
+
+        /// <summary>
+        /// 1、{{comment}}创建
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<bool> {{name}}CreateAsync({{name}}CreateDto {{name}}CreateDto)
+        {
+            return await _{{name}}Service.{{name}}CreateAsync({{name}}CreateDto);
+        }
+
+        /// <summary>
+        /// 2、{{comment}}集合查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<List<{{name}}Dto>> {{name}}GetListAsync([FromQuery]{{name}}GetListDto {{name}}GetListDto)
+        {
+            return await _{{name}}Service.{{name}}GetListAsync({{name}}GetListDto);
+        }
+
+        /// <summary>
+        /// 2.1、{{comment}}集合分页查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Page")]
+        public async Task<{{name}}PageDto> {{name}}GetListPageAsync([FromQuery]{{name}}GetListPageDto {{name}}GetListPageDto)
+        {
+            return  await _{{name}}Service.{{name}}GetListPageAsync({{name}}GetListPageDto);
+        }
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 3、{{comment}}查询【根据{{comment}}Id查询】
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{{"{"}}{{property.name}}}")]
+        public async Task<{{name}}Dto> {{name}}GetAsync({{property.type}} {{property.name}})
+        {
+            return await _{{name}}Service.{{name}}GetAsync({{property.name}});
+        }
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 4、{{comment}}更新
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<bool> {{name}}UpdateAsync({{name}}UpdateDto {{name}}UpdateDto,{{property.type}} {{property.name}})
+        {
+            return await _{{name}}Service.{{name}}UpdateAsync({{name}}UpdateDto, {{property.name}});
+        }
+        {{- end }}
+        {{- end }}
+
+        {{- for property in properties }}
+        {{- if property.key =="PRI" }}
+        /// <summary>
+        /// 5、{{comment}}删除
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<bool> {{name}}DeleteAsync(List<{{property.type}}> {{property.name}}s)
+        {
+            return await _{{name}}Service.{{name}}DeleteAsync({{property.name}}s) ;
+        }
+        {{- end }}
+        {{- end }}
+    }
+}

@@ -1,0 +1,36 @@
+﻿using JadeFramework.Dapper.DbContext;
+using JadeFramework.Dapper.SqlGenerator;
+using MySql.Data.MySqlClient;
+using System.Data;
+using System.Data.SqlClient;
+using ydt_workflows_backend.Repositorys;
+
+namespace ydt_workflows_backend.Contexts
+{
+    /// <summary>
+    /// 工作流上下文实现
+    /// </summary>
+    public class WorkflowDbContext : DapperDbContext, IWorkflowDbContext
+    {
+        /// <summary>
+        /// 1、数据库选择配置
+        /// </summary>
+        private readonly SqlGeneratorConfig sqlGeneratorConfig = new SqlGeneratorConfig
+        {
+            SqlConnector = ESqlConnector.MySQL, // 使用MySQL
+            UseQuotationMarks = true // 表和列名使用引号
+        };
+
+        public WorkflowDbContext(string ConnectionString) : 
+            base(new MySqlConnection(ConnectionString))
+        {
+        }
+
+        {{- for entity in entities }}
+        /// <summary>
+        /// 实现{{entity.comment}}仓储
+        /// </summary>
+         public I{{entity.name}}Repository {{entity.name}}s => new {{entity.name}}Repository(Connection, sqlGeneratorConfig);
+        {{- end }}
+    }
+}

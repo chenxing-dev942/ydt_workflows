@@ -1,0 +1,48 @@
+﻿using ydt_workflows_backend.CommonControllersExtensions;
+using ydt_workflows_backend.CommonExceptions;
+using ydt_workflows_backend.CommonResults;
+using ydt_workflows_backend.Contexts;
+using ydt_workflows_backend.Fixtrues;
+using ydt_workflows_backend.Services;
+
+namespace ydt_workflows_backend
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // 1、使用CommonController模块
+            builder.Services.AddCommonControllers();
+
+            // 2、实现配置 Services 和 Fixtrues
+            builder.Services.AddScoped(typeof(WorkflowFixtrue));
+
+            {{- for entitys in entities }}
+             builder.Services.AddScoped<I{{entitys.name}}Service, {{entitys.name}}Service>();
+            {{- end }}
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}

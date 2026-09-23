@@ -1,0 +1,30 @@
+﻿using AutoMapper;
+using ydt_workflows_backend.Models;
+
+namespace ydt_workflows_backend.Dtos
+{
+    /// <summary>
+    /// 1、配置映射关系
+    ///  Dto和Model之间的映射
+    /// </summary>
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            {{- for entitys in entities }}
+            // {{entitys.name}}模型的映射
+            CreateMap<{{entitys.name}}CreateDto,{{entitys.name}}>();
+            {{# 模型名判断，如果为User，生成登录模型}}
+            {{- if entitys.name == "User"}}
+            CreateMap<{{entitys.name}}, {{entitys.name}}LoginResultDto>();
+            {{- end }}
+            CreateMap<{{entitys.name}}, {{entitys.name}}Dto>();
+            CreateMap<{{entitys.name}}GetListPageDto, {{entitys.name}}GetListPage>();
+            CreateMap<{{entitys.name}}Page,{{entitys.name}}PageDto>();
+            CreateMap<{{entitys.name}}UpdateDto, {{entitys.name}}>();
+
+            {{- end}}
+
+        }
+    }
+}
