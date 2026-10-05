@@ -1,5 +1,7 @@
 using AutoMapper;
+using ydt_workflows_backend.Dtos.MyWorkflowWait;
 using ydt_workflows_backend.Models;
+using static ydt_workflows_backend.Dtos.MyWorkflowPageDto;
 
 namespace ydt_workflows_backend.Dtos
 {
@@ -100,12 +102,18 @@ namespace ydt_workflows_backend.Dtos
             CreateMap<WorkflowInstanceCreateDto,WorkflowInstance>();
             
             CreateMap<WorkflowInstance, WorkflowInstanceDto>();
-            CreateMap<WorkflowInstanceGetListPageDto, WorkflowInstanceGetListPage>();
-            CreateMap<WorkflowInstancePage,WorkflowInstancePageDto>();
+            CreateMap<MyWorkflowGetListPageDto, WorkflowInstanceGetListPage>();
+            CreateMap<WorkflowInstancePage,MyWorkflowPageDto>();
             CreateMap<WorkflowInstanceUpdateDto, WorkflowInstance>();
             // WorkflowInstanceForm模型的映射
             CreateMap<WorkflowInstanceFormCreateDto,WorkflowInstanceForm>();
-            
+            CreateMap<MyWorkflowWaitGetListPageDto, MyWorkflowWaitPageDto>();
+            CreateMap<WorkflowInstancePage, MyWorkflowWaitPageDto>();
+            CreateMap<WorkflowInstance, MyWorkflowWaitListDto>();
+            CreateMap<MyWorkflowWaitGetListPageDto, WorkflowInstanceGetListPage>();
+            CreateMap<MyWorkflowGetListPageDto, WorkflowInstanceGetListPage>();
+            CreateMap<WorkflowInstance, MyWorkflowDto>();
+
             CreateMap<WorkflowInstanceForm, WorkflowInstanceFormDto>();
             CreateMap<WorkflowInstanceFormGetListPageDto, WorkflowInstanceFormGetListPage>();
             CreateMap<WorkflowInstanceFormPage,WorkflowInstanceFormPageDto>();
@@ -121,8 +129,8 @@ namespace ydt_workflows_backend.Dtos
             CreateMap<WorkflowOperationHistoryCreateDto,WorkflowOperationHistory>();
             
             CreateMap<WorkflowOperationHistory, WorkflowOperationHistoryDto>();
-            CreateMap<WorkflowOperationHistoryGetListPageDto, WorkflowOperationHistoryGetListPage>();
-            CreateMap<WorkflowOperationHistoryPage,WorkflowOperationHistoryPageDto>();
+            CreateMap<ApprovalHistoryGetListPageDto, WorkflowOperationHistoryGetListPage>();
+            CreateMap<WorkflowOperationHistoryPage,ApprovalHistoryPageDto>();
             CreateMap<WorkflowOperationHistoryUpdateDto, WorkflowOperationHistory>();
             // WorkflowTransitionHistory模型的映射
             CreateMap<WorkflowTransitionHistoryCreateDto,WorkflowTransitionHistory>();

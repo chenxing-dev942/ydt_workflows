@@ -40,5 +40,11 @@ namespace ydt_workflows_backend.Services
         /// </summary>
         /// <returns></returns>
         public Task<bool> UserDeleteAsync(List<long> UserIds);
+
+        public Task<UserDeptDto> UserDeptGetAsync(long userId);
+
+        public Task<bool> UserDeptAssignAsync(UserDeptAssignDto userDeptAssignDto);
+        public Task<List<UserRoleDto>> UserRoleGetAsync(long userId);
+        public Task<bool> UserRoleAssignAsync(UserRoleAssignDto userRoleAssignDto);
     }
 }

@@ -44,6 +44,7 @@ namespace ydt_workflows_backend
             builder.Services.AddScoped<IWorkflowsqlService, WorkflowsqlService>();
 
             builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IIndexService, IndexService>();
 
             // 3、加载MappingProfile
             // 传入MappingProfile所在程序集，自动找到所有继承Profile的类

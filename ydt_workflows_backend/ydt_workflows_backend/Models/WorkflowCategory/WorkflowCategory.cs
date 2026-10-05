@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 分类ID
         /// </summary>
+        [Key]
         public string CategoryId { get; set; }
         
         /// <summary>

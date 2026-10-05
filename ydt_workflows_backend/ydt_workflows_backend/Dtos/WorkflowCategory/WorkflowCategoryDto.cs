@@ -9,5 +9,10 @@ namespace ydt_workflows_backend.Dtos
         public string Name { get; set; }
         public string ParentId { get; set; }
         public string Memo { get; set; }
-        public int Status { get; set; }}
+        public int Status { get; set; }
+        /// <summary>
+        /// 子分类Dto
+        /// </summary>
+        public List<WorkflowCategoryDto> ChildWorkflowCategoryDtos { set; get; }
+    }
 }

@@ -1,11 +1,13 @@
-namespace ydt_workflows_backend.Dtos
+﻿namespace ydt_workflows_backend.Dtos.MyWorkflowWait
 {
     /// <summary>
-    /// 流程实例模型【根据流程运行流程】分页查询入参Dto
+    /// 入参Dto
     /// </summary>
-    public class WorkflowInstanceGetListPageDto
+    public class MyWorkflowWaitGetListPageDto
     {
-        public bool IsDel { get; set; }
+        public int UserId { set; get; }
+
+        public string UserName { set; get; }
 
         /// <summary>
         /// 当前页【1 2 3】
@@ -23,7 +25,7 @@ namespace ydt_workflows_backend.Dtos
         /// <returns></returns>
         public int OffSet()
         {
-            return (PageIndex-1) * PageSize; // 0 10 20 30 
+            return (PageIndex - 1) * PageSize; // 0 10 20 30 
         }
     }
 }

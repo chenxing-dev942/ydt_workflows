@@ -20,5 +20,27 @@ namespace ydt_workflows_backend.Dtos
         public string Memo { get; set; }
         public bool IsButton { get; set; }
         public bool ButtonType { get; set; }
-        public string Path { get; set; }}
+        public string Path { get; set; }
+     // 按钮Dto
+        public List<ResourceButtonDto> ResourceButtonsDtos { get; set; }
+    }
+
+     /// <summary>
+     /// 资源按钮Dto
+     /// </summary>
+    public class ResourceButtonDto
+    {
+        /// <summary>
+        /// 资源主键
+        /// </summary>
+        public long Id { get; set; }
+        /// <summary>
+        /// 按钮类型 ==>用于vue
+        /// </summary>
+        public byte ButtonModel { get; set; }
+        /// <summary>
+        ///  按钮名称
+        /// </summary>
+        public string Name { get; set; }
+    }
 }

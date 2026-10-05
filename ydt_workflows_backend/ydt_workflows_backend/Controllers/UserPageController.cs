@@ -80,5 +80,44 @@ namespace ydt_workflows_backend.Controllers
         {
             return await _UserService.UserDeleteAsync(UserIds) ;
         }
+        /// <summary>
+        /// 6、 用户部门查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("UserDept")]
+        public async Task<UserDeptDto> UserDeptGetAsync(long UserId)
+        {
+            return await _UserService.UserDeptGetAsync(UserId);
+        }
+
+        /// <summary>
+        /// 6.1、用户部门分配
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("UserDept")]
+        public async Task<bool> UserDeptAssignAsync(UserDeptAssignDto userDeptAssignDto)
+        {
+            return await _UserService.UserDeptAssignAsync(userDeptAssignDto);
+        }
+
+        /// <summary>
+        /// 7、 用户角色查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("UserRole")]
+        public async Task<List<UserRoleDto>> UserRoleGetAsync(long UserId)
+        {
+            return await _UserService.UserRoleGetAsync(UserId);
+        }
+
+        /// <summary>
+        /// 7.1、用户角色分配
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("UserRole")]
+        public async Task<bool> UserRoleAssignAsync(UserRoleAssignDto userRoleAssignDto)
+        {
+            return await _UserService.UserRoleAssignAsync(userRoleAssignDto);
+        }
     }
 }

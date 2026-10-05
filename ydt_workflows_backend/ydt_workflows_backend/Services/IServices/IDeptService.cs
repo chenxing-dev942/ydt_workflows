@@ -29,7 +29,7 @@ namespace ydt_workflows_backend.Services
         /// 3、部门模型查询【根据DeptId查询】
         /// </summary>
         /// <returns></returns>
-        public Task<DeptDto> DeptGetAsync(long DeptId);
+        public Task<DeptSelectResultDto> DeptGetAsync(long DeptId);
         /// <summary>
         /// 4、部门模型更新
         /// </summary>

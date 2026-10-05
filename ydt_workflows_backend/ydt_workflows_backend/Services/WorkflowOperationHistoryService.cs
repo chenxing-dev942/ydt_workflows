@@ -1,10 +1,11 @@
-using ydt_workflows_backend.Contexts;
-using ydt_workflows_backend.Fixtrues;
-using ydt_workflows_backend.Dtos;
 using AutoMapper;
 using AutoMapper;
-using ydt_workflows_backend.Models;
+using System.Collections.Generic;
 using ydt_workflows_backend.CommonExceptions;
+using ydt_workflows_backend.Contexts;
+using ydt_workflows_backend.Dtos;
+using ydt_workflows_backend.Fixtrues;
+using ydt_workflows_backend.Models;
 
 namespace ydt_workflows_backend.Services
 {
@@ -53,7 +54,12 @@ namespace ydt_workflows_backend.Services
             return WorkflowOperationHistoryDtos;
         }
 
-        public async Task<WorkflowOperationHistoryPageDto> WorkflowOperationHistoryGetListPageAsync(WorkflowOperationHistoryGetListPageDto WorkflowOperationHistoryGetListPageDto)
+        /// <summary>
+        /// 审批历史分页查询 
+        /// </summary>
+        /// <param name="WorkflowOperationHistoryGetListPageDto"></param>
+        /// <returns></returns>
+        public async Task<ApprovalHistoryPageDto> WorkflowOperationHistoryGetListPageAsync(ApprovalHistoryGetListPageDto WorkflowOperationHistoryGetListPageDto)
         {
             // 1、流程操作历史模型分页Dto映射
             WorkflowOperationHistoryGetListPage WorkflowOperationHistoryGetListPage = _mapper.Map<WorkflowOperationHistoryGetListPage>(WorkflowOperationHistoryGetListPageDto);
@@ -62,8 +68,35 @@ namespace ydt_workflows_backend.Services
             WorkflowOperationHistoryPage WorkflowOperationHistoryPage = await _workflowFixtrue.db.WorkflowOperationHistorys.WorkflowOperationHistoryGetListPageAsync(WorkflowOperationHistoryGetListPage);
 
             // 3、流程操作历史模型分页模型映射
-            WorkflowOperationHistoryPageDto WorkflowOperationHistoryPageDto = _mapper.Map<WorkflowOperationHistoryPageDto>(WorkflowOperationHistoryPage);
-            return WorkflowOperationHistoryPageDto;
+            ApprovalHistoryPageDto approvalHistoryPageDto = _mapper.Map<ApprovalHistoryPageDto>(WorkflowOperationHistoryPage);
+            List<WorkflowOperationHistoryDto> historyDtos= approvalHistoryPageDto.WorkflowOperationHistorys;
+
+            foreach (var historyDto in historyDtos)
+            {
+                var workclowInstance=await _workflowFixtrue.db.WorkflowInstances.FindByIdAsync(historyDto.InstanceId);
+                historyDto.InstanceCode = workclowInstance.Code;
+                historyDto.Status=workclowInstance.Status;
+                historyDto.CreateUserName=workclowInstance.CreateUserName;
+                historyDto.FlowId=workclowInstance.FlowId;
+                historyDto.CreateTime=workclowInstance.UpdateTime;
+            }
+
+
+            foreach (var historyDto in historyDtos)
+            {
+                Workflow workflow = await _workflowFixtrue.db.Workflows.FindByIdAsync(historyDto.FlowId);
+                historyDto.FlowName=workflow.FlowName;
+                historyDto.FormId=workflow.FormId;
+            }
+
+            foreach (var historyDto in historyDtos)
+            {
+                WorkflowForm workflowForm = await _workflowFixtrue.db.WorkflowForms.FindByIdAsync(historyDto.FormId);
+                historyDto.FormType=workflowForm.FormType;
+                historyDto.FormName=workflowForm.FormName;
+            }
+
+            return approvalHistoryPageDto;
         }
         public async Task<WorkflowOperationHistoryDto> WorkflowOperationHistoryGetAsync(string OperationId)
         {

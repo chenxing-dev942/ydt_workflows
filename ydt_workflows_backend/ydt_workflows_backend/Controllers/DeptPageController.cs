@@ -58,7 +58,7 @@ namespace ydt_workflows_backend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{DeptId}")]
-        public async Task<DeptDto> DeptGetAsync(long DeptId)
+        public async Task<DeptSelectResultDto> DeptGetAsync(long DeptId)
         {
             return await _DeptService.DeptGetAsync(DeptId);
         }

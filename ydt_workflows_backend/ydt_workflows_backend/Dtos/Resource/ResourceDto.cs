@@ -20,5 +20,9 @@ namespace ydt_workflows_backend.Dtos
         public string Memo { get; set; }
         public bool IsButton { get; set; }
         public bool ButtonType { get; set; }
-        public string Path { get; set; }}
+        public string Path { get; set; }
+
+        // 子资源【子菜单】
+        public List<ResourceDto> ChildResouceDto { get; set; }
+    }
 }

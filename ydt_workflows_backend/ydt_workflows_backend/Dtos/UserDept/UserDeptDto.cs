@@ -5,8 +5,19 @@ namespace ydt_workflows_backend.Dtos
     /// </summary>
     public class UserDeptDto
     {
-        public long Id { get; set; }
         public long UserId { get; set; }
+        public string UserName { get; set; }
         public long DeptId { get; set; }
-        public long CreateTime { get; set; }}
+        public List<UserDeptList> userDeptLists { get; set; }   
+    }
+
+    /// <summary>
+    /// 用户部门接口
+    /// </summary>
+    public class UserDeptList
+    {
+        public long DeptId { get; set; }
+        public string DeptName { get; set; }
+        public bool Selected { set; get; } // 是否选中
+    }
 }

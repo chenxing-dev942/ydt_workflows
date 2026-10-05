@@ -58,7 +58,7 @@ namespace ydt_workflows_backend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{ResourceId}")]
-        public async Task<ResourceDto> ResourceGetAsync(long ResourceId)
+        public async Task<ResourceSelectResultDto> ResourceGetAsync(long ResourceId)
         {
             return await _ResourceService.ResourceGetAsync(ResourceId);
         }

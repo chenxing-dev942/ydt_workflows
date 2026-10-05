@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 主键
         /// </summary>
+        [Key,Identity]
         public long Id { get; set; }
         
         /// <summary>

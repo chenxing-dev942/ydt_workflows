@@ -3,10 +3,13 @@ namespace ydt_workflows_backend.Dtos
     /// <summary>
     /// 流程操作历史模型分页查询入参Dto
     /// </summary>
-    public class WorkflowOperationHistoryGetListPageDto
+    public class ApprovalHistoryGetListPageDto
     {
-        public bool IsDel { get; set; }
+         public string InstanceId { get; set; }
 
+        public string FlowName { get; set; }
+
+        public string FormName { get; set; }
         /// <summary>
         /// 当前页【1 2 3】
         /// </summary>

@@ -24,7 +24,7 @@ namespace ydt_workflows_backend.Services
         /// 2.1、流程操作历史模型集合分页查询
         /// </summary>
         /// <returns></returns>
-        public Task<WorkflowOperationHistoryPageDto> WorkflowOperationHistoryGetListPageAsync(WorkflowOperationHistoryGetListPageDto WorkflowOperationHistoryGetListPageDto);
+        public Task<ApprovalHistoryPageDto> WorkflowOperationHistoryGetListPageAsync(ApprovalHistoryGetListPageDto WorkflowOperationHistoryGetListPageDto);
         /// <summary>
         /// 3、流程操作历史模型查询【根据OperationId查询】
         /// </summary>

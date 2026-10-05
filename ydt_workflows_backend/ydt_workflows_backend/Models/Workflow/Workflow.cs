@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 工作流ID
         /// </summary>
+        [Key]
         public string FlowId { get; set; }
         
         /// <summary>

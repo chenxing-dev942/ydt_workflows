@@ -58,7 +58,7 @@ namespace ydt_workflows_backend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{CategoryId}")]
-        public async Task<WorkflowCategoryDto> WorkflowCategoryGetAsync(string CategoryId)
+        public async Task<WorkflowCategorySelectResultDto> WorkflowCategoryGetAsync(string CategoryId)
         {
             return await _WorkflowCategoryService.WorkflowCategoryGetAsync(CategoryId);
         }

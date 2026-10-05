@@ -107,5 +107,13 @@ namespace ydt_workflows_backend.Services
                 return true;
             }
         }
+
+        public async Task<List<WorkflowDto>> WorkflowGetListByCategoryIdAsync(string categoryId)
+        {
+            var workflows = await _workflowFixtrue.db.Workflows.FindAllAsync(m => m.CategoryId == categoryId);
+            List<Workflow> workflowList=workflows.ToList();
+            List<WorkflowDto> workflowDtos = _mapper.Map<List<WorkflowDto>>(workflowList);
+            return workflowDtos;
+        }
     }
 }

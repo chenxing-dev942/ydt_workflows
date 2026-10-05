@@ -29,7 +29,7 @@ namespace ydt_workflows_backend.Services
         /// 3、资源【菜单】模型查询【根据ResourceId查询】
         /// </summary>
         /// <returns></returns>
-        public Task<ResourceDto> ResourceGetAsync(long ResourceId);
+        public Task<ResourceSelectResultDto> ResourceGetAsync(long ResourceId);
         /// <summary>
         /// 4、资源【菜单】模型更新
         /// </summary>

@@ -6,18 +6,18 @@ using ydt_workflows_backend.Services;
 namespace ydt_workflows_backend.Controllers
 {
     /// <summary>
-    /// 流程操作历史模型控制器
+    /// 审批历史页控制器【审批历史】
     /// </summary>
     [Route("[controller]")]
     [ApiController]
-    public class WorkflowOperationHistoryPageController : CommonController<WorkflowOperationHistoryPageController>
+    public class ApprovalHistoryPageController : CommonController<ApprovalHistoryPageController>
     {
         /// <summary>
         /// 流程操作历史模型模型Service
         /// </summary>
         private IWorkflowOperationHistoryService _WorkflowOperationHistoryService;   
 
-        public WorkflowOperationHistoryPageController(ILogger<WorkflowOperationHistoryPageController> logger,
+        public ApprovalHistoryPageController(ILogger<ApprovalHistoryPageController> logger,
                                 IWorkflowOperationHistoryService WorkflowOperationHistoryService) : 
             base(logger)
         {
@@ -49,9 +49,9 @@ namespace ydt_workflows_backend.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("Page")]
-        public async Task<WorkflowOperationHistoryPageDto> WorkflowOperationHistoryGetListPageAsync([FromQuery]WorkflowOperationHistoryGetListPageDto WorkflowOperationHistoryGetListPageDto)
+        public async Task<ApprovalHistoryPageDto> WorkflowOperationHistoryGetListPageAsync([FromQuery]ApprovalHistoryGetListPageDto approvalHistoryGetListPageDto)
         {
-            return  await _WorkflowOperationHistoryService.WorkflowOperationHistoryGetListPageAsync(WorkflowOperationHistoryGetListPageDto);
+            return  await _WorkflowOperationHistoryService.WorkflowOperationHistoryGetListPageAsync(approvalHistoryGetListPageDto);
         }
         /// <summary>
         /// 3、流程操作历史模型查询【根据流程操作历史模型Id查询】

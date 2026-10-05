@@ -40,5 +40,12 @@ namespace ydt_workflows_backend.Services
         /// </summary>
         /// <returns></returns>
         public Task<bool> WorkflowDeleteAsync(List<string> FlowIds);
+
+        /// <summary>
+        /// 6、根据分类，查询工作流
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        public Task<List<WorkflowDto>> WorkflowGetListByCategoryIdAsync(string categoryId);
     }
 }

@@ -14,5 +14,8 @@ namespace ydt_workflows_backend.Dtos
         public bool IsDel { get; set; }
         public string Memo { get; set; }
         public long CreateUserId { get; set; }
-        public long CreateTime { get; set; }}
+        public long CreateTime { get; set; }
+
+        public List<DeptDto> ChildDepts { get; set; }
+    }
 }

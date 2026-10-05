@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 部门ID
         /// </summary>
+        [Key,Identity]
         public long SystemId { get; set; }
         
         /// <summary>

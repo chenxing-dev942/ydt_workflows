@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 工作流编码
         /// </summary>
+        [Key]
         public string FormId { get; set; }
         
         /// <summary>

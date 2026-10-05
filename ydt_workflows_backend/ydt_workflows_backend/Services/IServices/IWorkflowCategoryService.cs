@@ -29,7 +29,7 @@ namespace ydt_workflows_backend.Services
         /// 3、流程分类模型查询【根据CategoryId查询】
         /// </summary>
         /// <returns></returns>
-        public Task<WorkflowCategoryDto> WorkflowCategoryGetAsync(string CategoryId);
+        public Task<WorkflowCategorySelectResultDto> WorkflowCategoryGetAsync(string CategoryId);
         /// <summary>
         /// 4、流程分类模型更新
         /// </summary>

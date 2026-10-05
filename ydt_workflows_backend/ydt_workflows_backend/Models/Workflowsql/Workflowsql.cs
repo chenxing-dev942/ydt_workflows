@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 当前节点ID
         /// </summary>
+        [Key]
         public string Name { get; set; }
         
         /// <summary>

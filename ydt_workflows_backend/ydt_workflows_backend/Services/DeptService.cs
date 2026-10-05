@@ -48,11 +48,22 @@ namespace ydt_workflows_backend.Services
             IEnumerable<Dept> Depts = await _workflowFixtrue.db.Depts.FindAllAsync(u => u.IsDel == DeptGetListDto.IsDel);
             // 2、部门模型映射
             List<DeptDto> DeptDtos = _mapper.Map<List<DeptDto>>(Depts);
+            List<DeptDto> RootDeptDtos=DeptDtos.Where(d=>d.ParentId==0).ToList();
+            GetChildDepts(RootDeptDtos, DeptDtos);
 
             // 3、返回部门模型
             return DeptDtos;
         }
 
+        private void GetChildDepts(List<DeptDto> ChildDepts,List<DeptDto> DeptDtos)
+        {
+            foreach(var deptDto in ChildDepts)
+            {
+                List<DeptDto> depts= DeptDtos.Where(d=>d.ParentId==deptDto.DeptId).ToList();
+                deptDto.ChildDepts = depts;
+                GetChildDepts(deptDto.ChildDepts, DeptDtos);
+            }
+        }
         public async Task<DeptPageDto> DeptGetListPageAsync(DeptGetListPageDto DeptGetListPageDto)
         {
             // 1、部门模型分页Dto映射
@@ -65,15 +76,33 @@ namespace ydt_workflows_backend.Services
             DeptPageDto DeptPageDto = _mapper.Map<DeptPageDto>(DeptPage);
             return DeptPageDto;
         }
-        public async Task<DeptDto> DeptGetAsync(long DeptId)
+        public async Task<DeptSelectResultDto> DeptGetAsync(long DeptId)
         {
             // 1、查询部门模型
             Dept Dept = await _workflowFixtrue.db.Depts.FindAsync(m => m.DeptId == DeptId);
 
             // 2、映射部门模型
             DeptDto DeptDto = _mapper.Map<DeptDto>(Dept);
+            // 3、查询父级部门【树型结构】
+            // 3.1、查询所有部门模型【排除当前部门】
+            IEnumerable<Dept> depts = await _workflowFixtrue.db.Depts.FindAllAsync(d => d.IsDel == false && d.DeptId != DeptId);
+            // 3.2、部门模型映射
+            List<DeptDto> deptDtos=_mapper.Map<List<DeptDto>>(depts);
+            // 3.3、查询根部门 ParentId=0【根节点】
+            List<DeptDto> RootDeptDtos=deptDtos.Where(d=>d.ParentId==0).ToList();
+            // 3.4、查询所有子部门
+            GetChildDepts(RootDeptDtos, deptDtos);
 
-            return DeptDto;
+            DeptSelectResultDto deptSelectResultDto= new DeptSelectResultDto();
+            deptSelectResultDto.IsDel = DeptDto.IsDel;
+            deptSelectResultDto.DeptName = DeptDto.DeptName;
+            deptSelectResultDto.DeptCode = DeptDto.DeptCode;
+            deptSelectResultDto.DeptId = DeptDto.DeptId;
+            deptSelectResultDto.Memo = DeptDto.Memo;
+            deptSelectResultDto.SystemId = DeptDto.SystemId;
+            deptSelectResultDto.ParentDepts = RootDeptDtos; // 父级部门
+
+            return deptSelectResultDto;
         }
         public async Task<bool> DeptUpdateAsync(DeptUpdateDto DeptUpdateDto, long DeptId)
         {

@@ -1,15 +1,14 @@
 namespace ydt_workflows_backend.Dtos
 {
     /// <summary>
-    /// 流程实例模型【根据流程运行流程】分页查询结果Dto
+    /// 流程操作历史模型分页查询结果Dto
     /// </summary>
-    public class WorkflowInstancePageDto
+    public class ApprovalHistoryPageDto
     {
         /// <summary>
-        /// 1、流程实例模型【根据流程运行流程】集合
+        /// 1、审批历史集合
         /// </summary>
-        public List<WorkflowInstanceDto> WorkflowInstances { get; set; }
-
+        public List<WorkflowOperationHistoryDto> WorkflowOperationHistorys { get; set; }
 
         public int TotalPages
         {
@@ -41,9 +40,9 @@ namespace ydt_workflows_backend.Dtos
         /// </summary>
         public int PageSize { set; get; }
 
-        public WorkflowInstancePageDto()
+        public ApprovalHistoryPageDto()
         {
-            WorkflowInstances = new List<WorkflowInstanceDto>();
+            WorkflowOperationHistorys = new List<WorkflowOperationHistoryDto>();
         }
     }
 }

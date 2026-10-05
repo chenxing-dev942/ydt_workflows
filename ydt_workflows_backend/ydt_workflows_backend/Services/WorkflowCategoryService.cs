@@ -2,7 +2,6 @@ using ydt_workflows_backend.Contexts;
 using ydt_workflows_backend.Fixtrues;
 using ydt_workflows_backend.Dtos;
 using AutoMapper;
-using AutoMapper;
 using ydt_workflows_backend.Models;
 using ydt_workflows_backend.CommonExceptions;
 
@@ -49,10 +48,29 @@ namespace ydt_workflows_backend.Services
             // 2、流程分类模型映射
             List<WorkflowCategoryDto> WorkflowCategoryDtos = _mapper.Map<List<WorkflowCategoryDto>>(WorkflowCategorys);
 
+            List<WorkflowCategoryDto> RootWorkflowCategory = WorkflowCategoryDtos.Where(m=>m.ParentId==default(Guid).ToString()).ToList();
+            ChildWorkflowCategory(RootWorkflowCategory, WorkflowCategoryDtos);
             // 3、返回流程分类模型
             return WorkflowCategoryDtos;
         }
 
+        /// <summary>
+        /// 创建ChildWorkflowCategory 递归方法
+        /// 思路：
+        /// 1、找到通用的逻辑
+        /// 2、从通用的逻辑中，找到通用的参数
+        /// 3、自己调用自己
+        /// </summary>
+        private void ChildWorkflowCategory(List<WorkflowCategoryDto> RootWorkflowCategoryDtos,
+                                            List<WorkflowCategoryDto> WorkflowCategoryDtos)
+        {
+            foreach (var ChildCategoryDto in RootWorkflowCategoryDtos)
+            {
+                List<WorkflowCategoryDto> workflowCategoryDtos=WorkflowCategoryDtos.Where(m=>m.ParentId == ChildCategoryDto.CategoryId).ToList();
+                ChildCategoryDto.ChildWorkflowCategoryDtos=workflowCategoryDtos;
+                ChildWorkflowCategory(workflowCategoryDtos, WorkflowCategoryDtos);
+            }
+        }
         public async Task<WorkflowCategoryPageDto> WorkflowCategoryGetListPageAsync(WorkflowCategoryGetListPageDto WorkflowCategoryGetListPageDto)
         {
             // 1、流程分类模型分页Dto映射
@@ -65,15 +83,17 @@ namespace ydt_workflows_backend.Services
             WorkflowCategoryPageDto WorkflowCategoryPageDto = _mapper.Map<WorkflowCategoryPageDto>(WorkflowCategoryPage);
             return WorkflowCategoryPageDto;
         }
-        public async Task<WorkflowCategoryDto> WorkflowCategoryGetAsync(string CategoryId)
+        public async Task<WorkflowCategorySelectResultDto> WorkflowCategoryGetAsync(string CategoryId)
         {
             // 1、查询流程分类模型
             WorkflowCategory WorkflowCategory = await _workflowFixtrue.db.WorkflowCategorys.FindAsync(m => m.CategoryId == CategoryId);
 
             // 2、映射流程分类模型
-            WorkflowCategoryDto WorkflowCategoryDto = _mapper.Map<WorkflowCategoryDto>(WorkflowCategory);
-
-            return WorkflowCategoryDto;
+            WorkflowCategorySelectResultDto workflowCategorySelectResultDto = _mapper.Map<WorkflowCategorySelectResultDto>(WorkflowCategory);
+            WorkflowCategoryGetListDto WorkflowCategoryGetListDto = new WorkflowCategoryGetListDto();
+            List<WorkflowCategoryDto> workflowCategoryDtos=await WorkflowCategoryGetListAsync(WorkflowCategoryGetListDto);
+            workflowCategorySelectResultDto.ParentDtos=workflowCategoryDtos;
+            return workflowCategorySelectResultDto;
         }
         public async Task<bool> WorkflowCategoryUpdateAsync(WorkflowCategoryUpdateDto WorkflowCategoryUpdateDto, string CategoryId)
         {

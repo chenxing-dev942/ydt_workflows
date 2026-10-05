@@ -14,6 +14,7 @@ namespace ydt_workflows_backend.Models
         /// <summary>
         /// 当前节点ID
         /// </summary>
+        [Key]
         public string NoticeId { get; set; }
         
         /// <summary>
@@ -47,8 +48,7 @@ namespace ydt_workflows_backend.Models
         public bool Status { get; set; }
         
         /// <summary>
-        /// 执行人
-        ///为0表示全部人员
+        /// 执行人 为0表示全部人员
         /// </summary>
         public bool IsRead { get; set; }
     }

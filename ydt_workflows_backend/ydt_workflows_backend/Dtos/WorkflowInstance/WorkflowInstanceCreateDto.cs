@@ -1,3 +1,5 @@
+using JadeFramework.WorkFlow;
+
 namespace ydt_workflows_backend.Dtos
 {
     /// <summary>
@@ -5,16 +7,15 @@ namespace ydt_workflows_backend.Dtos
     /// </summary>
     public class WorkflowInstanceCreateDto
     {
-        public string InstanceId { get; set; }
         public string FlowId { get; set; }
-        public string Code { get; set; }
-        public string ActivityId { get; set; }
-        public int ActivityType { get; set; }
-        public string ActivityName { get; set; }
-        public string PreviousId { get; set; }
-        public string MakerList { get; set; }
-        public string FlowContent { get; set; }
-        public int FlowVersion { get; set; }
-        public string CreateUserName { get; set; }
-        public long UpdateTime { get; set; }}
+        public string FlowName { get; set; }
+        public string FormId { get; set; }
+        public WorkFlowFormType FormType { get; set; }
+        //public string FormContent { get; set; }
+        public string FormUrl { get; set; }
+        public string FormData { get; set; }
+
+        public string UserId { set; get; } // 用户Id
+        public string UserName { set; get; } // 用户名
+    }
 }
